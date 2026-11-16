@@ -48,6 +48,8 @@ class CategoryController
                 }
 
                 return [
+                    'id' => $category->id,
+                    'parent_id' => $category->parent_id,
                     'name' => $category->name,
                     'slug' => $category->slug,
                     'image' => $image,
