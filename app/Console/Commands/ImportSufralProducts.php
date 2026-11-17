@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\ProductAttributeDefinition;
 use App\Models\ProductAttributeValue;
 use App\Models\ProductMedia;
+use App\Models\Inventory;
 use App\Models\ProductVariant;
 use App\Models\Store;
 use Illuminate\Console\Command;
@@ -88,12 +89,20 @@ class ImportSufralProducts extends Command
                 'published_at' => now(),
             ]);
 
-            ProductVariant::create([
+            $variant = ProductVariant::create([
                 'store_id' => $store->id,
                 'product_id' => $product->id,
                 'sku' => $sku,
                 'price' => $price,
                 'is_active' => true,
+            ]);
+
+            // Stock: 2000 for every variant
+            Inventory::create([
+                'store_id' => $store->id,
+                'product_variant_id' => $variant->id,
+                'on_hand' => 2000,
+                'reserved' => 0,
             ]);
 
             // Images
