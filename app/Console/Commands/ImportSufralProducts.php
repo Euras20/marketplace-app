@@ -141,12 +141,16 @@ class ImportSufralProducts extends Command
                 $def = $attrDefs->get($code);
                 if (!$def) continue;
 
-                ProductAttributeValue::create([
-                    'store_id' => $store->id,
-                    'product_id' => $product->id,
-                    'attribute_definition_id' => $def->id,
-                    'value_text' => $aval,
-                ]);
+                ProductAttributeValue::updateOrCreate(
+                    [
+                        'store_id' => $store->id,
+                        'product_id' => $product->id,
+                        'attribute_definition_id' => $def->id,
+                    ],
+                    [
+                        'value_text' => $aval,
+                    ]
+                );
             }
 
             $created++;
