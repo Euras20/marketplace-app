@@ -70,6 +70,16 @@ class ImportSufralProducts extends Command
             $categoryName = $this->findAttr($data, 'Catégorie');
             $category = $categoryName ? $categories->get(Str::slug($categoryName)) : null;
 
+            // Fallback: use "Autres équipements" or the first available category
+            if (!$category) {
+                $category = $categories->get(Str::slug('Autres équipements'))
+                    ?? $categories->first();
+            }
+            if (!$category) {
+                $skipped++;
+                continue;
+            }
+
             // Brand
             $brandName = trim($data['brand'] ?? '') ?: $this->findAttr($data, 'Marque');
             $brand = $brandName ? $brands->get(Str::slug($brandName)) : null;
