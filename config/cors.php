@@ -4,8 +4,8 @@ return [
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
     'allowed_methods' => ['*'],
     'allowed_origins' => [
-        'https://strandmarket.netlify.app',
-        'https://sexyldoll.netlify.app',
+        'https://jseurope.shop',
+        'https://sexshopvenus.eu',
         'https://adminbackoffice.netlify.app',
     ],
     'allowed_origins_patterns' => [],
